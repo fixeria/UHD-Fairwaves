@@ -33,6 +33,7 @@
 #include "tmp102_ctrl.hpp"
 #include "power_amp.hpp"
 #include "umsel2_ctrl.hpp"
+#include <boost/asio/io_context.hpp>
 #include <uhd/usrp/mboard_eeprom.hpp>
 #include <uhd/property_tree.hpp>
 #include <uhd/device.hpp>
@@ -231,7 +232,7 @@ private:
     //tcp query server
     uhd::task::sptr _server_query_task;
     void server_query_handler(void);
-    boost::asio::io_service _server_query_io_service;
+    boost::asio::io_context _server_query_io_service;
     boost::shared_ptr<boost::asio::ip::tcp::acceptor> _server_query_tcp_acceptor;
     void client_query_handle(boost::shared_ptr<boost::asio::ip::tcp::socket>);
     void client_query_handle1(const boost::property_tree::ptree &request, boost::property_tree::ptree &response);
