@@ -15,6 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+#include "umtrx_common.hpp"
 #include <uhd/usrp/mboard_eeprom.hpp>
 #include <uhd/types/mac_addr.hpp>
 #include <uhd/types/byte_vector.hpp>
@@ -33,6 +34,7 @@ using namespace uhd::usrp;
 static const boost::uint8_t N200_EEPROM_ADDR = 0x50;
 static const size_t SERIAL_LEN = 9;
 static const size_t NAME_MAX_LEN = 32 - SERIAL_LEN;
+
 
 //! convert a string to a byte vector to write to eeprom
 static byte_vector_t string_to_uint16_bytes(const std::string &num_str){
@@ -232,19 +234,19 @@ void store_umtrx_eeprom(const mboard_eeprom_t &mb_eeprom, i2c_iface &iface)
 
     if (mb_eeprom.has_key("ip-addr")){
         byte_vector_t ip_addr_bytes(4);
-        byte_copy(boost::asio::ip::make_address_v4(mb_eeprom["ip-addr"]).to_bytes(), ip_addr_bytes);
+        byte_copy(PARSE_IP_V4_FROM_STRING(mb_eeprom["ip-addr"]).to_bytes(), ip_addr_bytes);
         iface.write_eeprom(N200_EEPROM_ADDR, offsetof(n200_eeprom_map, ip_addr), ip_addr_bytes);
     }
 
     if (mb_eeprom.has_key("subnet")){
         byte_vector_t ip_addr_bytes(4);
-        byte_copy(boost::asio::ip::make_address_v4(mb_eeprom["subnet"]).to_bytes(), ip_addr_bytes);
+        byte_copy(PARSE_IP_V4_FROM_STRING(mb_eeprom["subnet"]).to_bytes(), ip_addr_bytes);
         iface.write_eeprom(N200_EEPROM_ADDR, offsetof(n200_eeprom_map, subnet), ip_addr_bytes);
     }
 
     if (mb_eeprom.has_key("gateway")){
         byte_vector_t ip_addr_bytes(4);
-        byte_copy(boost::asio::ip::make_address_v4(mb_eeprom["gateway"]).to_bytes(), ip_addr_bytes);
+        byte_copy(PARSE_IP_V4_FROM_STRING(mb_eeprom["gateway"]).to_bytes(), ip_addr_bytes);
         iface.write_eeprom(N200_EEPROM_ADDR, offsetof(n200_eeprom_map, gateway), ip_addr_bytes);
     }
 

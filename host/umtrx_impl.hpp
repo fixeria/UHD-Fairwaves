@@ -232,7 +232,7 @@ private:
     //tcp query server
     uhd::task::sptr _server_query_task;
     void server_query_handler(void);
-    boost::asio::io_context _server_query_io_service;
+    BOOST_IO_CONTEXT _server_query_io_service;
     boost::shared_ptr<boost::asio::ip::tcp::acceptor> _server_query_tcp_acceptor;
     void client_query_handle(boost::shared_ptr<boost::asio::ip::tcp::socket>);
     void client_query_handle1(const boost::property_tree::ptree &request, boost::property_tree::ptree &response);
