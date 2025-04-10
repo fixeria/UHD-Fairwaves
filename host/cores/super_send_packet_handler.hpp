@@ -448,6 +448,11 @@ public:
         return send_packet_handler::recv_async_msg(async_metadata, timeout);
     }
 
+    void post_output_action(
+        const std::shared_ptr<uhd::rfnoc::action_info>& action, const size_t port){
+        // no action required
+    }
+
 private:
     size_t _max_num_samps;
 };

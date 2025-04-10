@@ -778,6 +778,10 @@ public:
         return recv_packet_handler::issue_stream_cmd(stream_cmd);
     }
 
+    void post_input_action(
+        const std::shared_ptr<uhd::rfnoc::action_info>& action, const size_t port){
+        // no action required
+    }
 private:
     size_t _max_num_samps;
 };
